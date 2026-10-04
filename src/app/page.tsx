@@ -1,9 +1,28 @@
+import MainNews from "@/components/MainNews";
+import Marquee from "@/components/Marquee";
 import Image from "next/image";
 
-export default function Home() {
+export default async function Home() {
+  const URL = "https://news-api-v2.vercel.app/api/news/sections";
+  const res = await fetch(URL);
+  const data = await res.json();
+  const sections = data.data;
+  const mainNews = sections[0].articles;
+
   return (
     <div>
-      <p>২০২৬ সালের ওয়াইল্ডলাইফ ফটোগ্রাফার অফ দ্য ইয়ার প্রতিযোগিতায় সব বিভাগে বিজয়ীদের নাম ঘোষণা করা হবে অক্টোবরে। এরপর সেগুলো নিয়ে একটি প্রদর্শনীও হবে। তবে প্রতিযোগিতায় অত্যন্ত প্রশংসা পাওয়া কিছু ছবি দেখতে ও পেছনের গল্প জানতে এই প্রতিবেদনে চোখ বুলাতে পারেন।</p>
+      <Marquee/>
+      <div className="grid grid-cols-3 max-w-7xl mx-auto">
+        {/* news section  */}
+        <div className=" col-span-2 ">
+          <MainNews news={mainNews} />
+        </div>
+
+        {/* Most read Section  */}
+        <div className="bg-pink-500 col-span-1 ">
+
+        </div>
+      </div>
     </div>
   );
 }
