@@ -1,6 +1,25 @@
 import Image from "next/image";
 
-const MainNews = ({ news }) => {
+interface INews {
+  id: string;
+  title: string;
+  description: string;
+  link: string[];
+  imageUrl: string[];
+  imageAlt: string;
+  category: string;
+  type: string;
+  isLive: boolean;
+  firstPublished: string;
+  lastPublished: string;
+  source: string;
+}
+
+// interface INewsResponse {
+//   articles: INews[];
+// }
+
+const MainNews = ({ news }: { news: INews[] }) => {
   const [firstNews, ...otherNews] = news;
 
   return (
@@ -12,28 +31,38 @@ const MainNews = ({ news }) => {
             height={600}
             width={700}
             src={firstNews.imageUrl}
-            alt={firstNews.title}
+            alt={firstNews.imageAlt}
             className="w-full"
           />
         </figure>
 
         <div className="card-body">
+          <p className="text-sm text-red-700 font-bold">{firstNews.category}</p>
+
           <h2 className="card-title">{firstNews.title}</h2>
+
           <p>{firstNews.description}</p>
 
-          <div className="card-actions justify-end">
-            <button className="btn btn-primary">Buy Now</button>
-          </div>
+          {/* Last Published */}
+          <small className="text-gray-500">
+            প্রকাশিত:{" "}
+            {new Date(firstNews.lastPublished).toLocaleString("bn-BD", {
+              dateStyle: "medium",
+              timeStyle: "short",
+            })}
+          </small>
         </div>
       </div>
 
       {/* Other News */}
       <div className="space-y-3">
-        {otherNews.slice(0,5).map((oNews) => (
+        {otherNews.slice(0, 4).map((oNews) => (
           <div
             key={oNews.id}
-            className="card bg-base-100 p-4 border border-gray-200 shadow-sm"
+            className="card bg-base-100 p-5 border border-gray-200 shadow-sm"
           >
+            <p className="text-sm text-red-700 font-bold">{oNews.category}</p>
+
             <h3 className="font-semibold text-sm">{oNews.title}</h3>
 
             <p className="text-xs text-gray-500 mt-2">{oNews.source}</p>
