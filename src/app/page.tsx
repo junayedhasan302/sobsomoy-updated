@@ -32,7 +32,7 @@ export default async function Home() {
   return (
     <div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 ">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
         {/* News Section */}
         <div className="col-span-1 md:col-span-2">
           <MainNews news={mainNews} />
