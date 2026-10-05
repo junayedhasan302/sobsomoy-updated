@@ -1,4 +1,6 @@
+
 import MarqueeText from "react-marquee-text";
+
 import "react-marquee-text/dist/styles.css";
 
 interface IHeadNews {
@@ -18,15 +20,17 @@ interface IHeadNews {
 
 const Marquee = async () => {
   const URL = "https://news-api-v2.vercel.app/api/news?limit=10";
+
   const res = await fetch(URL);
   const data = await res.json();
-  const headlines:IHeadNews[] = data.data;
+
+  const headlines: IHeadNews[] = data.data;
 
   return (
-    <div className="w-full bg-red-700">
+    <div className="sticky top-0 z-50 w-full bg-red-700">
       <div className="max-w-7xl mx-auto flex">
         {/* Latest Label */}
-        <div className=" bg-red-800 p-3 text-white font-semibold shadow-md px-4">
+        <div className="bg-red-800 p-3 text-white font-semibold shadow-md px-4">
           সর্বশেষ
         </div>
 
@@ -52,3 +56,4 @@ const Marquee = async () => {
 };
 
 export default Marquee;
+

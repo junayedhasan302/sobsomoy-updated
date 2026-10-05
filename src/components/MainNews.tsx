@@ -15,31 +15,31 @@ interface INews {
   source: string;
 }
 
-// interface INewsResponse {
-//   articles: INews[];
-// }
-
 const MainNews = ({ news }: { news: INews[] }) => {
   const [firstNews, ...otherNews] = news;
 
   return (
-    <div className="grid grid-cols-3 gap-5">
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
       {/* Main News */}
-      <div className="card bg-base-100 col-span-2 shadow-sm">
-        <figure>
+      <div className="card bg-base-100 col-span-1 md:col-span-2 shadow-sm">
+        <figure className="h-64 md:h-auto overflow-hidden">
           <Image
             height={600}
             width={700}
             src={firstNews.imageUrl}
             alt={firstNews.imageAlt}
-            className="w-full"
+            className="h-full w-full object-cover"
           />
         </figure>
 
         <div className="card-body">
-          <p className="text-sm text-red-700 font-bold">{firstNews.category}</p>
+          <p className="text-sm text-red-700 font-bold">
+            {firstNews.category}
+          </p>
 
-          <h2 className="card-title">{firstNews.title}</h2>
+          <h2 className="card-title">
+            {firstNews.title}
+          </h2>
 
           <p>{firstNews.description}</p>
 
@@ -55,17 +55,23 @@ const MainNews = ({ news }: { news: INews[] }) => {
       </div>
 
       {/* Other News */}
-      <div className="space-y-3">
+      <div className="col-span-1 space-y-3">
         {otherNews.slice(0, 4).map((oNews) => (
           <div
             key={oNews.id}
             className="card bg-base-100 p-5 border border-gray-200 shadow-sm"
           >
-            <p className="text-sm text-red-700 font-bold">{oNews.category}</p>
+            <p className="text-sm text-red-700 font-bold">
+              {oNews.category}
+            </p>
 
-            <h3 className="font-semibold text-sm">{oNews.title}</h3>
+            <h3 className="font-semibold text-sm">
+              {oNews.title}
+            </h3>
 
-            <p className="text-xs text-gray-500 mt-2">{oNews.source}</p>
+            <p className="text-xs text-gray-500 mt-2">
+              {oNews.source}
+            </p>
           </div>
         ))}
       </div>
@@ -74,3 +80,4 @@ const MainNews = ({ news }: { news: INews[] }) => {
 };
 
 export default MainNews;
+
