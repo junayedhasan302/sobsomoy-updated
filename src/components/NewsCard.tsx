@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 interface INews {
@@ -18,41 +19,49 @@ interface INews {
 
 const NewsCard = ({ news }: { news: INews }) => {
   return (
-    <div className="card bg-base-100 border border-gray-200 rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 h-full">
-      {/* News Image */}
-      <figure className="h-48 md:h-52 lg:h-48 w-full overflow-hidden">
-        <Image
-          height={400}
-          width={600}
-          src={news.imageUrl}
-          alt={news.imageAlt}
-          className="h-full w-full object-cover transition-transform duration-700 ease-out hover:scale-105"
-        />
-      </figure>
+    <Link href={`/news/${news.id}`} className="block w-full h-full">
+      <div className="w-full h-full bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 ease-out flex flex-col justify-between group">
 
-      {/* News Content */}
-      <div className="card-body p-5">
-        <p className="text-xs text-red-600 font-bold uppercase tracking-wide">
-          {news.category}
-        </p>
+        {/* News Image - Responsive Height */}
+        <figure className="h-48 sm:h-52 w-full overflow-hidden relative bg-gray-100 flex-shrink-0">
+          <Image
+            height={400}
+            width={600}
+            src={news.imageUrl as unknown as string}
+            alt={news.imageAlt || news.title}
+            className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+          />
+        </figure>
 
-        <h2 className="card-title text-lg font-bold leading-snug text-gray-800">
-          {news.title}
-        </h2>
+        {/* News Content */}
+        <div className="p-4 sm:p-5 flex flex-col flex-grow justify-between gap-3">
+          <div className="space-y-2">
+            <p className="text-xs text-red-600 font-bold uppercase tracking-wider flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-red-600 inline-block"></span>
+              {news.category}
+            </p>
 
-        <p className="text-sm text-gray-600 leading-relaxed line-clamp-3">
-          {news.description}
-        </p>
+            <h2 className="text-base sm:text-lg font-bold leading-snug text-gray-900 group-hover:text-red-600 transition-colors duration-200 line-clamp-2">
+              {news.title}
+            </h2>
 
-        <small className="text-xs text-gray-500 border-t border-gray-200 pt-3 mt-2">
-          প্রকাশিত:{" "}
-          {new Date(news.lastPublished).toLocaleString("bn-BD", {
-            dateStyle: "medium",
-            timeStyle: "short",
-          })}
-        </small>
+            <p className="text-xs sm:text-sm text-gray-600 leading-relaxed line-clamp-3">
+              {news.description}
+            </p>
+          </div>
+
+          <small className="text-xs text-gray-500 border-t border-gray-100 pt-3 mt-2 block font-medium">
+            প্রকাশিত:{" "}
+            {news.lastPublished
+              ? new Date(news.lastPublished).toLocaleString("bn-BD", {
+                  dateStyle: "medium",
+                  timeStyle: "short",
+                })
+              : "সাম্প্রতিক"}
+          </small>
+        </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

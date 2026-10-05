@@ -1,4 +1,4 @@
-
+import Link from "next/link";
 
 interface IMostRead {
   id: string;
@@ -42,7 +42,7 @@ const MostRead = async () => {
 
               {/* News Title */}
               <h2 className="font-semibold text-sm leading-relaxed text-gray-700 group-hover:text-red-700 transition-colors duration-300 cursor-pointer">
-                {mrNews.title}
+                <Link href={`/news/${mrNews.id}`}>{mrNews.title}</Link>
               </h2>
             </div>
           );
