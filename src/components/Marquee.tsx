@@ -27,7 +27,7 @@ const Marquee = async () => {
   const headlines: IHeadNews[] = data.data;
 
   return (
-    <div className="sticky top-0 z-50 w-full bg-red-700">
+    <div className="sticky top-0 z-50 w-full bg-red-700 mb-5">
       <div className="max-w-7xl mx-auto flex">
         {/* Latest Label */}
         <div className="bg-red-800 p-3 text-white font-semibold shadow-md px-4">

@@ -36,7 +36,7 @@ const NavLinks = async () => {
       {filteredNavs.map((n, i) => (
         <Link
           key={i}
-          href={n.slug}
+          href={`/category/${n.slug}`}
           className="font-medium text-sm sm:text-base hover:text-[#FC3F33] transition-colors"
         >
           {n.title}
