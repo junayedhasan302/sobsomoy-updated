@@ -42,7 +42,7 @@ export default async function Home() {
               return (
                 <div
                   key={os.curationId}
-                  className="border-b-2 pb-3 border-red-700"
+                  className="pb-3"
                 >
                   <h1 className="font-bold text-2xl text-red-600">
                     {os.title}

@@ -1,4 +1,3 @@
-
 import Link from "next/link";
 
 interface INavs {
@@ -11,35 +10,51 @@ interface INavs {
 
 const NavLinks = async () => {
   // Api theke data ana + fetch kora
-  const URL = "https://news-api-v2.vercel.app/api/categories";
+  const URL =
+    "https://news-api-v2.vercel.app/api/categories";
 
-  const res = await fetch(URL);
-  const data = await res.json();
+  let navs: INavs[] = [];
 
-  console.log(data);
+  try {
+    const res = await fetch(URL, { cache: "no-store" });
+    const data = await res.json();
 
-  const navs: INavs[] = data.data;
+    navs = data.data || [];
+  } catch (error) {
+    console.error("Error fetching categories:", error);
+  }
 
-  // Eikhane মূলপাতা aar সর্বাধিক পঠিত kee baad ditesi filter kore
-  const filteredNavs = navs.filter((n) => n.scrapable);
+  // Eikhane mul pata aar sorbadhik pothito ke baad diye filter kora
+  const filteredNavs = Array.isArray(navs)
+    ? navs.filter((n) => n.scrapable)
+    : [];
 
   // JSX / UI
   return (
-    <nav className="flex justify-start sm:justify-center gap-4 sm:gap-6 md:gap-8 mt-4 pt-3 border-t overflow-x-auto whitespace-nowrap">
+    <nav className="flex justify-start sm:justify-center gap-4 sm:gap-6 md:gap-8 mt-4 pt-2 overflow-x-auto whitespace-nowrap pb-1">
+
+      {/* Home link */}
       <Link
-        className="font-medium text-sm sm:text-base hover:text-[#FC3F33] transition-colors"
-        href={"/"}
+        href="/"
+        className="group relative font-bold sm:text-base hover:text-[#FC3F33] transition-colors text-2xl py-1"
       >
         হোম
+
+        {/* Hover korle animated underline ashbe */}
+        <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#FC3F33] transition-all duration-300 ease-in-out group-hover:w-full" />
       </Link>
 
-      {filteredNavs.map((n, i) => (
+      {/* Dynamic category links */}
+      {filteredNavs.map((n) => (
         <Link
-          key={i}
+          key={n.slug}
           href={`/category/${n.slug}`}
-          className="font-medium text-sm sm:text-base hover:text-[#FC3F33] transition-colors"
+          className="group relative font-bold text-sm sm:text-base hover:text-[#FC3F33] transition-colors py-1"
         >
           {n.title}
+
+          {/* Hover korle animated underline ashbe */}
+          <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#FC3F33] transition-all duration-300 ease-in-out group-hover:w-full" />
         </Link>
       ))}
     </nav>
@@ -47,4 +62,3 @@ const NavLinks = async () => {
 };
 
 export default NavLinks;
-

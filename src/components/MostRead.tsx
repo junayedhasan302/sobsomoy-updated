@@ -33,7 +33,7 @@ const MostRead = async () => {
           return (
             <div
               key={mrNews.id}
-              className="group flex gap-3 py-3 border-b border-gray-100 last:border-b-0"
+              className="group flex gap-3 py-3 border-b border-gray-200 last:border-b-0"
             >
               {/* Index */}
               <div className="shrink-0 w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 text-gray-500 font-bold text-sm group-hover:bg-red-700 group-hover:text-white transition-colors duration-300">

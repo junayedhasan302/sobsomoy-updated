@@ -35,7 +35,7 @@ const Marquee = async () => {
         </div>
         {/* <Link href={`/news/${firstNews.id}`} */}
         {/* Marquee Area */}
-        <div className="relative flex-1 overflow-hidden">
+        <div className="relative flex-1 overflow-hidden ">
           <MarqueeText
             duration={10}
             pauseOnHover={false}
@@ -44,7 +44,7 @@ const Marquee = async () => {
           >
             {headlines.map((h) => (
               <Link href={`/news/${h.id}`} key={h.id}>
-                <span>
+                <span className="hover:text-yellow-300 transition-colors">
                   {h.title}
                   <span className="mx-6 text-red-200">•</span>
                 </span>

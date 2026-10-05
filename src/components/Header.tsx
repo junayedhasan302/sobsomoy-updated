@@ -1,6 +1,6 @@
-
 import Image from "next/image";
-import logo from "../../public/logo.webp";
+
+import logo from "../../public/AllTimeUpdatedLogo.png";
 import NavLinks from "./NavLinks";
 
 const Header = () => {
@@ -9,45 +9,44 @@ const Header = () => {
   });
 
   return (
-    <header className=" top-0 z-50 bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-200">
-      <div className="max-w-7xl mx-auto px-4 py-4">
+    <header className="bg-white/95 backdrop-blur-md border-b border-gray-200">
+      <div className="max-w-7xl mx-auto px-4 py-2">
         {/* Top Navbar */}
         <div className="flex items-center justify-between">
           {/* Logo + Date */}
-          <div className="flex items-center gap-3">
+          <div className="flex flex-col items-center">
             <Image
-              className="w-9 h-9 sm:w-10 sm:h-10 lg:w-11 lg:h-11 rounded-full object-cover ring-2 ring-[#FC3F33]/20"
-              height={50}
-              width={50}
               src={logo}
               alt="All time updated"
+              width={300}
+              height={80}
+              className="w-32 sm:w-36 lg:w-40 h-auto object-contain"
+              priority
             />
 
-            <div className="flex flex-col leading-tight">
-              <h2 className="font-bold text-base sm:text-lg text-[#FC3F33] tracking-tight">
-                All time updated
-              </h2>
-
-              <p className="text-xs sm:text-sm text-gray-500 mt-1">
-                {date}
-              </p>
-            </div>
+            <p className="hidden sm:block text-xs text-gray-500">{date}</p>
           </div>
 
           {/* Auth Buttons */}
           <div className="flex gap-2">
-            <button className="btn btn-xs sm:btn-sm bg-white border-gray-300 text-gray-700 hover:bg-gray-100 hover:border-gray-400">
+            <button className="btn btn-xs bg-white border-gray-300 text-gray-700 hover:bg-gray-100">
               সাইন ইন
             </button>
 
-            <button className="btn btn-xs sm:btn-sm bg-[#FC3F33] text-white border-none hover:bg-[#e83228] shadow-sm">
+            <button className="btn btn-xs bg-[#FC3F33] text-white border-none hover:bg-[#e83228]">
               সাইন আপ
             </button>
           </div>
         </div>
-
+        <div className="relative my-8 flex items-center justify-center">
+          <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-gray-300 to-transparent"></div>
+          <div className="absolute bg-white px-3 flex items-center gap-2 text-xs font-semibold text-gray-500 uppercase tracking-widest border border-gray-200 rounded-full py-0.5 shadow-sm">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#FC3F33] animate-pulse"></span>
+            <span>All time updated</span>
+          </div>
+        </div>
         {/* Category Navbar */}
-        <div className="mt-4 pt-3 border-t border-gray-100">
+        <div>
           <NavLinks />
         </div>
       </div>
@@ -56,4 +55,3 @@ const Header = () => {
 };
 
 export default Header;
-
