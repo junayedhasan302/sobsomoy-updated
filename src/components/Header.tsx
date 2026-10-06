@@ -2,6 +2,7 @@ import Image from "next/image";
 
 import logo from "../../public/AllTimeUpdatedLogo.png";
 import NavLinks from "./NavLinks";
+import UserInfo from "./UserInfo";
 
 const Header = () => {
   const date = new Date().toLocaleDateString("bn-BD", {
@@ -28,15 +29,7 @@ const Header = () => {
           </div>
 
           {/* Auth Buttons */}
-          <div className="flex gap-2">
-            <button className="btn btn-xs bg-white border-gray-300 text-gray-700 hover:bg-gray-100">
-              সাইন ইন
-            </button>
-
-            <button className="btn btn-xs bg-[#FC3F33] text-white border-none hover:bg-[#e83228]">
-              সাইন আপ
-            </button>
-          </div>
+          <UserInfo/>
         </div>
         <div className="relative my-8 flex items-center justify-center">
           <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-gray-300 to-transparent"></div>
