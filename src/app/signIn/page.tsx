@@ -28,7 +28,7 @@ const SignInPage = () => {
     }
 
     if (error) {
-      toast.error(error.message);
+      toast.error(error.message ?? "Sign in failed");
     }
   };
 

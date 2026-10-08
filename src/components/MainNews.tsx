@@ -11,8 +11,8 @@ interface INews {
   category: string;
   type: string;
   isLive: boolean;
-  firstPublished: string;
-  lastPublished: string;
+  firstPublished: string | null;
+  lastPublished: string | null;
   source: string;
 }
 
@@ -57,10 +57,12 @@ const MainNews = ({ news }: { news: INews[] }) => {
               {/* Last Published */}
               <small className="text-gray-500 mt-2 block">
                 প্রকাশিত:{" "}
-                {new Date(firstNews.lastPublished).toLocaleString("bn-BD", {
-                  dateStyle: "medium",
-                  timeStyle: "short",
-                })}
+                {firstNews.lastPublished
+                  ? new Date(firstNews.lastPublished).toLocaleString("bn-BD", {
+                      dateStyle: "medium",
+                      timeStyle: "short",
+                    })
+                  : "সাম্প্রতিক"}
               </small>
             </div>
           </div>
@@ -82,11 +84,18 @@ const MainNews = ({ news }: { news: INews[] }) => {
 
               <p className="text-xs text-gray-500 mt-2 flex justify-between items-center">
                 <span>{oNews.source}</span>
-                {oNews.lastPublished && (
-                  <span>
-                    {new Date(oNews.lastPublished).toLocaleDateString("bn-BD")}
-                  </span>
-                )}
+                <small className="text-gray-500 mt-2 block">
+                  প্রকাশিত:{" "}
+                  {firstNews.lastPublished
+                    ? new Date(firstNews.lastPublished).toLocaleString(
+                        "bn-BD",
+                        {
+                          dateStyle: "medium",
+                          timeStyle: "short",
+                        },
+                      )
+                    : "সাম্প্রতিক"}
+                </small>
               </p>
             </div>
           </Link>
