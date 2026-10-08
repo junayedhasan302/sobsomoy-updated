@@ -4,12 +4,14 @@ import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
 
 const UserInfo = () => {
+  // Accessing User
   const { data: session, isPending } = authClient.useSession();
+  const user = session?.user;
+  console.log(user);
 
   console.log("Session:", session);
   console.log("Pending:", isPending);
-  const user = session?.user;
-  
+
   const handleSignOut = async () => {
     await authClient.signOut();
   };
@@ -19,24 +21,29 @@ const UserInfo = () => {
       {isPending ? (
         <p>Loading...</p>
       ) : user ? (
-        <div className="flex flex-col items-center gap-3">
-          <div className="avatar">
-            <div className="w-11 rounded-full ring-2 ring-primary ring-offset-2 ring-offset-base-100">
-              <img
-                alt="Tailwind-CSS-Avatar-component"
-                src={session.user?.image as string}
-              />
+        <Link href={'/profile'}>
+          <div className="flex flex-col items-center gap-3">
+            <div className="avatar">
+              <div className="w-11 rounded-full ring-2 ring-primary ring-offset-2 ring-offset-base-100">
+                <img
+                  alt="Tailwind-CSS-Avatar-component"
+                  src={session.user?.image as string}
+                />
+              </div>
             </div>
+
+            <p className="text-sm font-semibold text-base-content">
+              Welcome, {user.name}
+            </p>
+
+            <button
+              onClick={handleSignOut}
+              className="btn btn-xs btn-error px-4"
+            >
+              Sign Out
+            </button>
           </div>
-
-          <p className="text-sm font-semibold text-base-content">
-            Welcome, {user.name}
-          </p>
-
-          <button onClick={handleSignOut} className="btn btn-xs btn-error px-4">
-            Sign Out
-          </button>
-        </div>
+        </Link>
       ) : (
         <div className="flex gap-2">
           <Link href={"/signIn"}>
