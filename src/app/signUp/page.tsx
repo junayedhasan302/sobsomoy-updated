@@ -1,16 +1,21 @@
 "use client";
 
 import { authClient } from "@/lib/auth-client";
+import { redirect } from "next/navigation";
 import { showToast } from "nextjs-toast-notify";
-import { ReactEventHandler } from "react";
 
 const SignUpPage = () => {
-  // e:React.SubmitEvent<HTMLElement ---> Eta react event handler er type
-  const onSubmit = async (e:React.SubmitEvent<HTMLElement>) => {
+  const onSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const formData = new FormData(e.target);
-    const user = Object.fromEntries(formData.entries()) as {name: string, email: string, image: string, password: string};
+    const formData = new FormData(e.currentTarget);
+
+    const user = Object.fromEntries(formData.entries()) as {
+      name: string;
+      email: string;
+      image: string;
+      password: string;
+    };
 
     const { data, error } = await authClient.signUp.email({
       ...user,
@@ -18,7 +23,9 @@ const SignUpPage = () => {
     });
 
     if (data) {
-      console.log(data);
+      console.log("SIGNUP DATA:", data);
+      // Home page e niye jabe after sign up
+      redirect("/");
       showToast.success("Account created successfully!", {
         duration: 4000,
         transition: "bounceInDown",
@@ -29,14 +36,19 @@ const SignUpPage = () => {
     }
 
     if (error) {
-      console.log(error);
-      showToast.error("User already exists. Use another email!", {
-        duration: 4000,
-        transition: "swingInverted",
-        icon: "",
-        position: "top-right",
-        sound: true,
-      });
+      console.log("SIGNUP ERROR:", error);
+      console.log("SIGNUP ERROR JSON:", JSON.stringify(error, null, 2));
+
+      showToast.error(
+        error.message || "Something went wrong. Please try again!",
+        {
+          duration: 4000,
+          transition: "swingInverted",
+          icon: "",
+          position: "top-right",
+          sound: true,
+        },
+      );
     }
   };
 
@@ -47,6 +59,7 @@ const SignUpPage = () => {
       <form onSubmit={onSubmit}>
         <fieldset className="fieldset rounded-box w-md">
           <label className="label">নাম</label>
+
           <input
             name="name"
             type="text"
@@ -55,6 +68,7 @@ const SignUpPage = () => {
           />
 
           <label className="label">Image URL</label>
+
           <input
             name="image"
             type="url"
@@ -63,6 +77,7 @@ const SignUpPage = () => {
           />
 
           <label className="label">ইমেইল</label>
+
           <input
             name="email"
             type="email"
@@ -71,6 +86,7 @@ const SignUpPage = () => {
           />
 
           <label className="label">পাসওয়ার্ড</label>
+
           <input
             name="password"
             type="password"

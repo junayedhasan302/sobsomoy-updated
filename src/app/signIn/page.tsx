@@ -1,8 +1,42 @@
+'use client'
+
+import { authClient } from "@/lib/auth-client";
+
+
 const SignInPage = () => {
+  const onSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.currentTarget);
+
+    const user = Object.fromEntries(formData.entries()) as {
+      email: string;
+      password: string;
+    };
+
+    const { data, error } = await authClient.signIn.email({
+      ...user,
+      callbackURL: "/",
+    });
+
+    if (data) {
+      console.log("SIGNIN DATA:", data);
+      // Home page e niye jabe after sign up
+      // redirect("/");
+    }
+
+    if (error) {
+      console.log("SIGNIN ERROR:", error);
+    }
+  };
+
+
+
+
   return (
     <div className="flex flex-col items-center justify-center">
       <h2 className="text-2xl font-bold text-red-700">সাইন ইন</h2>
-      <form>
+      <form onSubmit={onSubmit}>
         <fieldset className="fieldset rounded-box w-md ">
           <label className="label">ইমেইল</label>
           <input
