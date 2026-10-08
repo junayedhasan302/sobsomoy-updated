@@ -1,6 +1,8 @@
 'use client'
 
 import { authClient } from "@/lib/auth-client";
+import { success } from "better-auth";
+import toast from "react-hot-toast";
 
 
 const SignInPage = () => {
@@ -20,13 +22,15 @@ const SignInPage = () => {
     });
 
     if (data) {
-      console.log("SIGNIN DATA:", data);
+      toast.success("Sign in successfully!")
+      // console.log("SIGNIN DATA:", data);
       // Home page e niye jabe after sign up
       // redirect("/");
     }
 
     if (error) {
-      console.log("SIGNIN ERROR:", error);
+      // console.log("SIGNIN ERROR:", error);
+      toast.error(error.message)
     }
   };
 

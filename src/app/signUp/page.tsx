@@ -25,7 +25,6 @@ const SignUpPage = () => {
     if (data) {
       console.log("SIGNUP DATA:", data);
       // Home page e niye jabe after sign up
-      redirect("/");
       showToast.success("Account created successfully!", {
         duration: 4000,
         transition: "bounceInDown",
@@ -33,6 +32,7 @@ const SignUpPage = () => {
         icon: "",
         sound: true,
       });
+      redirect("/");
     }
 
     if (error) {
