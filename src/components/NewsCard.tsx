@@ -19,7 +19,7 @@ interface INews {
 
 const NewsCard = ({ news }: { news: INews }) => {
   return (
-    <Link href={`/news/${news.id}`} className="block w-full h-full">
+    <Link href={`/news/${news.id}`} className="block w-full h-full p-4">
       <div className="w-full h-full bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 ease-out flex flex-col justify-between group">
 
         {/* News Image */}
