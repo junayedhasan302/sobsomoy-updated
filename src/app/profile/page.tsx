@@ -1,10 +1,10 @@
-
 "use client";
 
 import toast from "react-hot-toast";
 import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
 import { useState } from "react";
+import Image from "next/image";
 
 const ProfilePage = () => {
   /*
@@ -138,12 +138,20 @@ const ProfilePage = () => {
     return (
       <div className="flex min-h-[80vh] items-center justify-center">
         <div className="text-center">
-          <p className="text-sm text-gray-500">
-            আপনি লগইন করা নেই।
-            <Link href={"./signIn"}>
-            </Link>
-          </p>
+          {/* Login না করা user-এর জন্য GIF */}
+          <Image
+            src="/crying.gif"
+            alt="Crying"
+            width={120}
+            height={120}
+            className="mx-auto mb-3"
+            unoptimized
+          />
 
+          {/* Login না করার message */}
+          <p className="text-sm text-gray-500">আপনি লগইন করা নেই।</p>
+
+          {/* Login page-এর link */}
           <Link
             href="/signIn"
             className="mt-2 inline-block text-sm font-semibold text-[#FC3F33] hover:underline"
@@ -181,9 +189,7 @@ const ProfilePage = () => {
    * ============================================================
    */
 
-  const handleUpdateProfile = async (
-    e: React.FormEvent<HTMLFormElement>
-  ) => {
+  const handleUpdateProfile = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
@@ -309,13 +315,11 @@ const ProfilePage = () => {
 
       <div className="flex min-h-[80vh] items-center justify-center px-4 py-8">
         <div className="w-full max-w-sm rounded-xl border border-gray-200 bg-white p-4 shadow-sm transition hover:shadow-md">
-
           {/* ======================================================
               11. BASIC PROFILE INFORMATION
               ====================================================== */}
 
           <div className="flex items-center gap-4">
-
             {/* ----------------------------------------------------
                 11.1 Profile Image
                 ---------------------------------------------------- */}
@@ -342,9 +346,7 @@ const ProfilePage = () => {
                 {user.name}
               </h1>
 
-              <p className="truncate text-sm text-gray-500">
-                {user.email}
-              </p>
+              <p className="truncate text-sm text-gray-500">{user.email}</p>
 
               {/* --------------------------------------------------
                   Email Verification Status
@@ -355,7 +357,6 @@ const ProfilePage = () => {
                   <span className="flex h-4 w-4 items-center justify-center rounded-full bg-green-500 text-[10px] text-white">
                     ✓
                   </span>
-
                   ভেরিফাইড
                 </span>
               ) : (
@@ -363,7 +364,6 @@ const ProfilePage = () => {
                   <span className="flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-[10px] text-white">
                     !
                   </span>
-
                   ভেরিফাইড নয়
                 </span>
               )}
@@ -381,19 +381,14 @@ const ProfilePage = () => {
               ====================================================== */}
 
           <div className="flex items-center justify-between text-xs">
-            <span className="text-gray-400">
-              সর্বশেষ আপডেট
-            </span>
+            <span className="text-gray-400">সর্বশেষ আপডেট</span>
 
             <span className="font-medium text-gray-600">
-              {new Date(user.updatedAt).toLocaleDateString(
-                "bn-BD",
-                {
-                  year: "numeric",
-                  month: "short",
-                  day: "numeric",
-                }
-              )}
+              {new Date(user.updatedAt).toLocaleDateString("bn-BD", {
+                year: "numeric",
+                month: "short",
+                day: "numeric",
+              })}
             </span>
           </div>
 
@@ -473,10 +468,7 @@ const ProfilePage = () => {
                     authClient.updateUser()
                     ------------------------------------------------ */}
 
-                <form
-                  onSubmit={handleUpdateProfile}
-                  className="space-y-3"
-                >
+                <form onSubmit={handleUpdateProfile} className="space-y-3">
                   {/* ==================================================
                       17. NAME INPUT
                       ================================================== */}
@@ -558,9 +550,7 @@ const ProfilePage = () => {
                     disabled={isUpdating}
                     className="w-full rounded-lg bg-[#FC3F33] py-2 text-sm font-semibold text-white transition hover:bg-[#e7352b] disabled:cursor-not-allowed disabled:opacity-60"
                   >
-                    {isUpdating
-                      ? "আপডেট হচ্ছে..."
-                      : "প্রোফাইল আপডেট করুন"}
+                    {isUpdating ? "আপডেট হচ্ছে..." : "প্রোফাইল আপডেট করুন"}
                   </button>
                 </form>
               </div>
